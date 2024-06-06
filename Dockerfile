@@ -28,6 +28,19 @@ RUN \
 RUN \
   apk del $BUILD_PACKAGES
 
+# rename privoxy .new files
+# privoxy .new suffix added on alpine:3.12 privoxy (3.0.33-r0) and later.
+# causes multitor to not properly start
+# for package contents see https://pkgs.alpinelinux.org/contents?branch=v3.12&name=privoxy&arch=x86_64&repo=main
+RUN mv /etc/privoxy/config.new /etc/privoxy/config && \
+    mv /etc/privoxy/default.action.new /etc/privoxy/default.action && \
+    mv /etc/privoxy/default.filter.new /etc/privoxy/default.filter && \
+    mv /etc/privoxy/match-all.action.new /etc/privoxy/match-all.action && \
+    mv /etc/privoxy/regression-tests.action.new /etc/privoxy/regression-tests.action.new && \
+    mv /etc/privoxy/trust.new /etc/privoxy/trust && \
+    mv /etc/privoxy/user.action.new /etc/privoxy/user.action && \
+    mv /etc/privoxy/user.filter.new /etc/privoxy/user.filter
+
 # install multitor
 RUN	git clone https://github.com/kleo/multitor && \
 	cd multitor && \
