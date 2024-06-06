@@ -14,22 +14,22 @@ RUN \
   update-ca-certificates
 
 # install polipo
-RUN \
-	wget https://github.com/jech/polipo/archive/master.zip -O polipo.zip && \
-	unzip polipo.zip && \
-  cd polipo-master && \
-  make && \
-  install polipo /usr/local/bin/ && \
-  cd .. && \
-  rm -rf polipo.zip polipo-master && \
-  mkdir -p /usr/share/polipo/www /var/cache/polipo 
+# RUN \
+# 	wget https://github.com/jech/polipo/archive/master.zip -O polipo.zip && \
+# 	unzip polipo.zip && \
+#   cd polipo-master && \
+#   make && \
+#   install polipo /usr/local/bin/ && \
+#   cd .. && \
+#   rm -rf polipo.zip polipo-master && \
+#   mkdir -p /usr/share/polipo/www /var/cache/polipo 
 
 # clean build packages
 RUN \
   apk del $BUILD_PACKAGES
 
 # install multitor
-RUN	git clone https://github.com/trimstray/multitor && \
+RUN	git clone https://github.com/kleo/multitor && \
 	cd multitor && \
 	./setup.sh install && \
 # create log folders
