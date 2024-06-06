@@ -3,11 +3,14 @@
 This is an Alpine Docker image that runs multitor. Multitor creates a Proxy with multiple TOR instances wich are load-balanced. For detailed information about multitor, check out https://github.com/trimstray/multitor .
 
 # Build
+
+```bash
 git clone https://github.com/kleo/docker-multitor
 
 cd docker-multitor
 
 docker build -t multitor .
+```
 
 # Quick Start
 
@@ -17,7 +20,10 @@ docker build -t multitor .
 docker run -it --rm -p 16379:16379 kleo/multitor
 
 # Start 20 tor instances
-docker run -it --rm -e "TOR_INSTANCES=20" -p 16379:16379 kleo/multitor 
+docker run -it --rm -e "TOR_INSTANCES=20" -p 16379:16379 kleo/multitor
+
+# Check multitor
+for i in $(seq 1 4) ; do printf "req %2d: " "$i" ; curl -k --location --proxy 127.0.0.1:16379 https://httpbin.org/ip ; done
 ```
 
 # Advance
